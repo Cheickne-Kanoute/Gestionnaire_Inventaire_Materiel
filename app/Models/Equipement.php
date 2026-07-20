@@ -2,18 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Equipement extends Model
 {
-    //
     use HasFactory;
+
     protected $fillable = [
         'nom',
         'type',
         'adresse_ip',
         'date_acquisition',
-        'statut'
+        'statut',
     ];
-
 }
