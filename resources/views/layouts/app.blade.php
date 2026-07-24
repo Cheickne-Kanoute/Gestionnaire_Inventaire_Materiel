@@ -79,12 +79,6 @@
             </a>
         </nav>
 
-        <div class="sidebar-footer">
-            <a href="{{ route('dashboard') }}" class="sidebar-footer-link">
-                <i class="fas fa-chart-line" aria-hidden="true"></i>
-                Statistiques
-            </a>
-        </div>
     </aside>
 
     {{-- ════ CONTENU PRINCIPAL ════ --}}
