@@ -1,0 +1,27 @@
+/* =====================================================
+   COMPONENTS / _alerts.css
+   Alertes de session (succès, erreur).
+   ===================================================== */
+.alert-pro {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0.85rem 1.25rem;
+    border-radius: var(--radius);
+    font-size: 0.87rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 0.3s ease-out;
+}
+
+.alert-success-pro {
+    background: var(--green-bg);
+    color: #15803d;
+    border: 1px solid var(--green-border);
+}
+
+.alert-danger-pro {
+    background: var(--red-bg);
+    color: #b91c1c;
+    border: 1px solid var(--red-border);
+}

@@ -1,0 +1,108 @@
+/* =====================================================
+   COMPONENTS / _buttons.css
+   Tous les styles de boutons utilisés dans le projet.
+   ===================================================== */
+
+/* ── Base commune ── */
+.btn-pro {
+    padding: 0.55rem 1.25rem;
+    border-radius: 10px;
+    font-size: 0.87rem;
+    font-weight: 600;
+    font-family: var(--font);
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease,
+                color 0.2s ease,
+                box-shadow 0.2s ease,
+                transform 0.15s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+/* ── Variante primaire ── */
+.btn-primary-pro {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.25);
+}
+
+.btn-primary-pro:hover {
+    background: var(--primary-hover);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    transform: translateY(-1px);
+}
+
+.btn-primary-pro:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.2);
+}
+
+/* ── Variante légère ── */
+.btn-light-pro {
+    background: var(--surface);
+    color: var(--text-secondary);
+    border: 1.5px solid var(--border);
+}
+
+.btn-light-pro:hover {
+    background: var(--bg);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+/* ── Variante danger ── */
+.btn-danger-pro {
+    background: var(--red);
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(220, 38, 38, 0.25);
+}
+
+.btn-danger-pro:hover {
+    background: #b91c1c;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+    transform: translateY(-1px);
+}
+
+/* ── Boutons d'action icône (table) ── */
+.action-btn-group {
+    display: flex;
+    gap: 4px;
+    justify-content: flex-end;
+}
+
+.action-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s ease,
+                color 0.15s ease,
+                border-color 0.15s ease;
+}
+
+.action-btn:hover {
+    background: var(--primary-50);
+    color: var(--primary);
+    border-color: var(--primary-200);
+}
+
+.action-btn-danger:hover {
+    background: var(--red-bg);
+    color: var(--red);
+    border-color: var(--red-border);
+}

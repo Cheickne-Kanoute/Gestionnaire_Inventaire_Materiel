@@ -1,0 +1,192 @@
+/* =====================================================
+   PAGES / _dashboard.css
+   Styles propres à la page tableau de bord.
+   ===================================================== */
+
+/* ── En-tête ── */
+.dash-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.dash-title {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 2px;
+    font-size: 1.4rem;
+    color: var(--text);
+}
+
+.dash-subtitle {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    margin: 0;
+}
+
+/* ── Grille KPI ── */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ── Grille section médiane ── */
+.dash-mid-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ── Anneau SVG opérationnel ── */
+.ring-wrapper {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin-bottom: 1.5rem;
+}
+
+.ring-wrapper svg {
+    transform: rotate(-90deg);
+}
+
+.ring-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ring-percent {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -1px;
+    line-height: 1;
+}
+
+.ring-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+}
+
+.ring-progress {
+    transition: stroke-dasharray 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Statistiques santé ── */
+.health-stats {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.health-stat {
+    text-align: center;
+}
+
+.health-stat__value {
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.health-stat__label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+}
+
+.health-divider {
+    width: 1px;
+    height: 32px;
+    background: var(--border);
+}
+
+/* ── Barres de répartition par type ── */
+.type-row {
+    margin-bottom: 1.25rem;
+}
+
+.type-row:last-child {
+    margin-bottom: 0;
+}
+
+.type-row__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.type-row__info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.type-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
+.type-icon--pc      { background: var(--primary-50); color: var(--primary); }
+.type-icon--serveur { background: var(--purple-bg);  color: var(--purple);  }
+.type-icon--switch  { background: var(--cyan-bg);    color: var(--cyan);    }
+
+.type-row__name {
+    font-weight: 600;
+    font-size: 0.87rem;
+    color: var(--text);
+}
+
+.type-row__count {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.type-row__pct {
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.pct--pc      { color: var(--primary); }
+.pct--serveur { color: var(--purple);  }
+.pct--switch  { color: var(--cyan);    }
+
+.type-bar-track {
+    height: 6px;
+    background: var(--bg);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.type-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.type-bar-fill--pc      { background: var(--primary); }
+.type-bar-fill--serveur { background: var(--purple);  }
+.type-bar-fill--switch  { background: var(--cyan);    }

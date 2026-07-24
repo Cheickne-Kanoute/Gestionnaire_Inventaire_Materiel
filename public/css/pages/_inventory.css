@@ -1,0 +1,65 @@
+/* =====================================================
+   PAGES / _inventory.css
+   Styles propres à la page inventaire (liste).
+   ===================================================== */
+
+/* ── En-tête de page ── */
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.page-title {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 2px;
+    font-size: 1.4rem;
+    color: var(--text);
+}
+
+.page-subtitle {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    margin: 0;
+}
+
+.page-subtitle a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.page-subtitle a:hover {
+    text-decoration: underline;
+}
+
+/* ── Grille des stats ── */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ── Filtres rapides de la table ── */
+.table-filters {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* ── Lien de réinitialisation ── */
+.reset-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.reset-link:hover {
+    text-decoration: underline;
+}

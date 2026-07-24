@@ -1,0 +1,47 @@
+/* =====================================================
+   BASE / _reset.css
+   Reset minimal + styles de base sur body et *
+   ===================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+}
+
+button {
+    font-family: var(--font);
+    cursor: pointer;
+}
+
+/* Supprime les styles par défaut des listes */
+ul,
+ol {
+    list-style: none;
+}

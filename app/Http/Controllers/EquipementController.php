@@ -10,13 +10,55 @@ class EquipementController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function dashboard()
     {
-        $equipements = Equipement::all();
-        $totalCount = $equipements->count();
-        $actifCount = $equipements->where('statut', 'Actif')->count();
-        $maintenanceCount = $equipements->where('statut', 'En maintenance')->count();
-        return view('equipements.index', compact('equipements', 'totalCount', 'actifCount', 'maintenanceCount'));
+        $all              = \App\Models\Equipement::all();
+        $totalCount       = $all->count();
+        $actifCount       = $all->where('statut', 'Actif')->count();
+        $maintenanceCount = $all->where('statut', 'En maintenance')->count();
+        $tauxOp           = $totalCount > 0 ? round(($actifCount / $totalCount) * 100) : 0;
+
+        // Distribution par type
+        $byType = $all->groupBy('type')->map->count();
+
+        // 5 derniers équipements
+        $recents = \App\Models\Equipement::latest()->take(5)->get();
+
+        return view('equipements.dashboard', compact(
+            'totalCount', 'actifCount', 'maintenanceCount', 'tauxOp', 'byType', 'recents'
+        ));
+    }
+
+    public function index(Request $request)
+    {
+        $search = $request->input('search');
+        $type   = $request->input('type');
+
+        // Always compute stats from ALL equipment (not filtered)
+        $allEquipements   = Equipement::all();
+        $totalCount       = $allEquipements->count();
+        $actifCount       = $allEquipements->where('statut', 'Actif')->count();
+        $maintenanceCount = $allEquipements->where('statut', 'En maintenance')->count();
+
+        // Apply filters for the displayed list
+        $query = Equipement::query();
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nom', 'like', '%' . $search . '%')
+                  ->orWhere('adresse_ip', 'like', '%' . $search . '%');
+            });
+        }
+
+        if ($type) {
+            $query->where('type', $type);
+        }
+
+        $equipements = $query->get();
+
+        return view('equipements.index', compact(
+            'equipements', 'totalCount', 'actifCount', 'maintenanceCount', 'search', 'type'
+        ));
     }
 
     /**
