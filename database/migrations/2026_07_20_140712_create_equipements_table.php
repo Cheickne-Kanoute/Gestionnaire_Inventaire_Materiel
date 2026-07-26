@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('adresse_ip');
             $table->date('date_acquisition');
             $table->string('statut');
+            $table->unsignedBigInteger('prix')->nullable();
             $table->timestamps();
         });
     }

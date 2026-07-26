@@ -4,58 +4,55 @@
    toutes les couleurs, tailles et ombres du projet.
    ===================================================== */
 :root {
-    /* ── Couleurs primaires ── */
-    --primary:        #2563eb;
-    --primary-hover:  #1d4ed8;
-    --primary-50:     #eff6ff;
-    --primary-100:    #dbeafe;
-    --primary-200:    #bfdbfe;
+    /* ── Couleurs primaires (Bleu ardoise doux) ── */
+    --primary:        #3b82f6;
+    --primary-hover:  #2563eb;
+    --primary-50:     #f0f7ff;
+    --primary-100:    #e0f2fe;
+    --primary-200:    #bae6fd;
 
-    /* ── Couleurs sémantiques ── */
-    --green:          #16a34a;
+    /* ── Couleurs sémantiques douces ── */
+    --green:          #166534;
     --green-bg:       #f0fdf4;
-    --green-border:   #bbf7d0;
+    --green-border:   #dcfce7;
 
-    --amber:          #d97706;
+    --amber:          #b45309;
     --amber-bg:       #fffbeb;
-    --amber-border:   #fde68a;
+    --amber-border:   #fef3c7;
 
-    --red:            #dc2626;
+    --red:            #b91c1c;
     --red-bg:         #fef2f2;
-    --red-border:     #fecaca;
+    --red-border:     #fee2e2;
 
-    --purple:         #7c3aed;
-    --purple-bg:      #f3e8ff;
+    --purple:         #6366f1;
+    --purple-bg:      #f5f3ff;
 
-    --cyan:           #0891b2;
-    --cyan-bg:        #ecfeff;
+    --cyan:           #0284c7;
+    --cyan-bg:        #f0f9ff;
 
     /* ── Surfaces & fonds ── */
-    --bg:             #f1f5f9;
+    --bg:             #f8fafc;
     --surface:        #ffffff;
     --border:         #e2e8f0;
     --border-light:   #f1f5f9;
 
     /* ── Typographie ── */
-    --text:           #0f172a;
+    --text:           #1e293b;
     --text-secondary: #475569;
     --text-muted:     #94a3b8;
     --font:           'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono:      'SF Mono', 'Cascadia Code', Consolas, monospace;
 
-    /* ── Ombres ── */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06),
-                 0 2px 4px -2px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.07),
-                 0 4px 6px -4px rgba(0, 0, 0, 0.07);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08),
-                 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+    /* ── Ombres très légères / Minimales ── */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+    --shadow-md: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+    --shadow-xl: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 
     /* ── Bordures arrondies ── */
-    --radius:    12px;
-    --radius-lg: 16px;
-    --radius-sm: 8px;
+    --radius:    10px;
+    --radius-lg: 12px;
+    --radius-sm: 6px;
 
     /* ── Layout ── */
     --sidebar-w: 256px;

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('title', 'Inventaire — IT Assets Manager')
-@section('count', $totalCount)
 
 @section('content')
 
@@ -126,6 +125,7 @@
                     <th>Équipement</th>
                     <th class="col-hide-mobile">Type</th>
                     <th class="col-hide-mobile">Adresse IP</th>
+                    <th class="col-hide-mobile">Prix (FCFA)</th>
                     <th class="col-hide-mobile">Acquisition</th>
                     <th>Statut</th>
                     <th>Actions</th>
@@ -150,6 +150,11 @@
                     </td>
                     <td class="col-hide-mobile">
                         <span class="ip-tag">{{ $equipement->adresse_ip }}</span>
+                    </td>
+                    <td class="col-hide-mobile">
+                        <span style="font-weight:600;color:var(--text-primary);">
+                            {{ $equipement->prix ? number_format($equipement->prix, 0, ',', ' ') . ' FCFA' : '—' }}
+                        </span>
                     </td>
                     <td class="col-hide-mobile">
                         <span style="color:var(--text-secondary);font-size:0.85rem;">
@@ -177,7 +182,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6">
+                    <td colspan="7">
                         <div class="table-empty">
                             <div class="table-empty__icon">
                                 <i class="fas {{ $search || $type ? 'fa-search' : 'fa-inbox' }}" aria-hidden="true"></i>

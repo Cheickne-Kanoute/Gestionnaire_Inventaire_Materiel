@@ -17,6 +17,7 @@ class EquipementController extends Controller
         $actifCount       = $all->where('statut', 'Actif')->count();
         $maintenanceCount = $all->where('statut', 'En maintenance')->count();
         $tauxOp           = $totalCount > 0 ? round(($actifCount / $totalCount) * 100) : 0;
+        $totalValeur      = $all->sum('prix');
 
         // Distribution par type
         $byType = $all->groupBy('type')->map->count();
@@ -25,7 +26,7 @@ class EquipementController extends Controller
         $recents = \App\Models\Equipement::latest()->take(5)->get();
 
         return view('equipements.dashboard', compact(
-            'totalCount', 'actifCount', 'maintenanceCount', 'tauxOp', 'byType', 'recents'
+            'totalCount', 'actifCount', 'maintenanceCount', 'tauxOp', 'byType', 'recents', 'totalValeur'
         ));
     }
 
@@ -80,6 +81,7 @@ class EquipementController extends Controller
             'adresse_ip'       => 'required|ip|unique:equipements,adresse_ip',
             'date_acquisition' => 'required|date',
             'statut'           => 'required|string|in:Actif,En maintenance',
+            'prix'             => 'nullable|numeric|min:0',
         ]);
 
         Equipement::create($validatedData);
@@ -115,6 +117,7 @@ class EquipementController extends Controller
             'adresse_ip'       => 'required|ip|unique:equipements,adresse_ip,' . $equipement->id,
             'date_acquisition' => 'required|date',
             'statut'           => 'required|string|in:Actif,En maintenance',
+            'prix'             => 'nullable|numeric|min:0',
         ]);
 
         $equipement->update($validatedData);

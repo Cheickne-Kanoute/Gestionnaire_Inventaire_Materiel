@@ -28,46 +28,39 @@
 .btn-primary-pro {
     background: var(--primary);
     color: #fff;
-    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.25);
 }
 
 .btn-primary-pro:hover {
     background: var(--primary-hover);
     color: #fff;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
-    transform: translateY(-1px);
 }
 
 .btn-primary-pro:active {
-    transform: translateY(0);
-    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.2);
+    opacity: 0.9;
 }
 
 /* ── Variante légère ── */
 .btn-light-pro {
     background: var(--surface);
     color: var(--text-secondary);
-    border: 1.5px solid var(--border);
+    border: 1px solid var(--border);
 }
 
 .btn-light-pro:hover {
     background: var(--bg);
     color: var(--text);
-    border-color: var(--border);
+    border-color: #cbd5e1;
 }
 
 /* ── Variante danger ── */
 .btn-danger-pro {
     background: var(--red);
     color: #fff;
-    box-shadow: 0 1px 3px rgba(220, 38, 38, 0.25);
 }
 
 .btn-danger-pro:hover {
-    background: #b91c1c;
+    background: #991b1b;
     color: #fff;
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
-    transform: translateY(-1px);
 }
 
 /* ── Boutons d'action icône (table) ── */

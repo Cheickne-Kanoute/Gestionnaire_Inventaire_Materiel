@@ -39,22 +39,22 @@
 .status-actif {
     background: var(--green-bg);
     color: var(--green);
+    border: 1px solid var(--green-border);
 }
 
 .status-actif .dot {
     background: var(--green);
-    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
 }
 
 /* En maintenance */
 .status-maintenance {
     background: var(--amber-bg);
     color: var(--amber);
+    border: 1px solid var(--amber-border);
 }
 
 .status-maintenance .dot {
     background: var(--amber);
-    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2);
 }
 
 /* ── Tag IP (monospace) ── */

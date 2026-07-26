@@ -15,5 +15,6 @@ class Equipement extends Model
         'adresse_ip',
         'date_acquisition',
         'statut',
+        'prix',
     ];
 }

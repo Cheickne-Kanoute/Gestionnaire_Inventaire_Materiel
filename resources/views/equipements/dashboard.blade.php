@@ -136,6 +136,7 @@
                     <th>Équipement</th>
                     <th class="col-hide-mobile">Type</th>
                     <th class="col-hide-mobile">Adresse IP</th>
+                    <th class="col-hide-mobile">Prix (FCFA)</th>
                     <th class="col-hide-mobile">Acquisition</th>
                     <th>Statut</th>
                     <th>Actions</th>
@@ -162,6 +163,11 @@
                         <span class="ip-tag">{{ $eq->adresse_ip }}</span>
                     </td>
                     <td class="col-hide-mobile">
+                        <span style="font-weight:600;color:var(--text-primary);">
+                            {{ $eq->prix ? number_format($eq->prix, 0, ',', ' ') . ' FCFA' : '—' }}
+                        </span>
+                    </td>
+                    <td class="col-hide-mobile">
                         <span style="color:var(--text-secondary);font-size:0.85rem;">
                             {{ \Carbon\Carbon::parse($eq->date_acquisition)->format('d M Y') }}
                         </span>
@@ -179,7 +185,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6">
+                    <td colspan="7">
                         <div class="table-empty">
                             <div class="table-empty__icon">
                                 <i class="fas fa-inbox" aria-hidden="true"></i>

@@ -49,7 +49,7 @@
                aria-current="{{ request()->routeIs('equipements.index') && !request('type') ? 'page' : 'false' }}">
                 <i class="fas fa-list" aria-hidden="true"></i>
                 Inventaire
-                <span class="link-badge" aria-label="Total équipements">@yield('count', '—')</span>
+                <span class="link-badge" aria-label="Total équipements">{{ $inventoryCount }}</span>
             </a>
 
             <a href="{{ route('equipements.create') }}"
@@ -83,64 +83,6 @@
 
     {{-- ════ CONTENU PRINCIPAL ════ --}}
     <div class="main-wrapper">
-
-        {{-- Top bar --}}
-        <header class="top-bar" role="banner">
-            <div class="top-bar-left">
-                <button class="top-icon-btn sidebar-toggle"
-                        id="sidebarToggleBtn"
-                        type="button"
-                        aria-label="Ouvrir le menu"
-                        aria-controls="sidebar"
-                        onclick="toggleSidebar()">
-                    <i class="fas fa-bars" aria-hidden="true"></i>
-                </button>
-
-                <form class="search-box"
-                      action="{{ route('equipements.index') }}"
-                      method="GET"
-                      role="search"
-                      aria-label="Rechercher un équipement">
-                    @if(request('type'))
-                        <input type="hidden" name="type" value="{{ request('type') }}">
-                    @endif
-                    <i class="fas fa-search search-icon" aria-hidden="true"></i>
-                    <input type="text"
-                           id="globalSearch"
-                           name="search"
-                           placeholder="Rechercher un équipement..."
-                           value="{{ request('search') }}"
-                           autocomplete="off"
-                           aria-label="Rechercher">
-                </form>
-            </div>
-
-            <div class="top-bar-right">
-                <div class="divider-v" aria-hidden="true"></div>
-                <div class="user-pill" role="button" tabindex="0" aria-label="Menu utilisateur">
-                    <div class="user-avatar" aria-hidden="true">A</div>
-                    <span class="user-pill-name">Admin</span>
-                </div>
-            </div>
-        </header>
-
-        {{-- Barre de recherche mobile --}}
-        <div class="mobile-search-bar" aria-hidden="true">
-            <form class="search-box"
-                  action="{{ route('equipements.index') }}"
-                  method="GET"
-                  role="search">
-                @if(request('type'))
-                    <input type="hidden" name="type" value="{{ request('type') }}">
-                @endif
-                <i class="fas fa-search search-icon" aria-hidden="true"></i>
-                <input type="text"
-                       name="search"
-                       placeholder="Rechercher..."
-                       value="{{ request('search') }}"
-                       autocomplete="off">
-            </form>
-        </div>
 
         {{-- Zone de contenu --}}
         <main class="content-area" role="main">

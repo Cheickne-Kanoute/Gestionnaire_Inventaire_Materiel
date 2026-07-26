@@ -132,6 +132,25 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="form-label-pro" for="prix">
+                            Prix (FCFA)
+                        </label>
+                        <input type="number"
+                               name="prix"
+                               id="prix"
+                               class="form-input-pro @error('prix') is-invalid @enderror"
+                               value="{{ old('prix', $equipement->prix) }}"
+                               placeholder="Ex : 450000"
+                               min="0">
+                        @error('prix')
+                            <div class="form-error">
+                                <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
                     <div class="form-actions">
                         <a href="{{ route('equipements.index') }}" class="btn-pro btn-light-pro">
                             Annuler
