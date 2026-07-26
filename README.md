@@ -1,420 +1,158 @@
-# 🖥️ Gestionnaire d'Inventaire Matériel IT
+# 🖥️ IT Assets Manager — Gestionnaire d'Inventaire Matériel (Thème 04)
 
-> Application web CRUD pour la gestion de parc informatique — Développée avec **Laravel 13** et **MDBootstrap 7**
+> **Examen Pratique : Développement d'Applications CRUD avec Laravel**  
+> **Établissement :** TechnoLAB-ISTA | **Niveau :** Licence 3 Génie Logiciel (2025-2026)  
+> **Thème 04 :** Gestionnaire d'Inventaire Matériel (IT Assets)
+
+---
+
+## 🌐 Liens Officiels du Rendu
+
+- **🚀 Application en Production (Render) :** [https://gestionnaire-inventaire-materiel.onrender.com](https://gestionnaire-inventaire-materiel.onrender.com)
+- **💻 Code Source (GitHub) :** [https://github.com/Cheickne-Kanoute/Gestionnaire_Inventaire_Materiel](https://github.com/Cheickne-Kanoute/Gestionnaire_Inventaire_Materiel)
 
 ---
 
 ## 📋 Description du Projet
 
-Ce projet est une application web de gestion d'inventaire de matériel informatique. Elle permet de suivre l'ensemble des équipements d'un parc IT (ordinateurs, serveurs, switches/routeurs) via une interface moderne et professionnelle.
+L'application **IT Assets Manager** est une solution web professionnelle permettant d'assurer le suivi et la gestion du parc informatique physique d'une entreprise (ordinateurs, serveurs, switches réseau). 
 
-L'application implémente les 4 opérations **CRUD** (Create, Read, Update, Delete) sur la ressource `Equipement`.
+Elle implémente rigoureusement le pattern **MVC natif de Laravel** et couvre le cycle complet des 4 opérations **CRUD** (Create, Read, Update, Delete) ainsi qu'un tableau de bord décisionnel.
+
+### Champs requis par le Thème 04 :
+- **Nom de l'équipement** (ex: `PC-Compta-01`, `SRV-DATABASE-01`)
+- **Type de matériel** (`PC`, `Serveur`, `Switch`)
+- **Adresse IP** (valide et unique)
+- **Date d'acquisition**
+- **Statut opérationnel** (`Actif`, `En maintenance`)
+- **Prix / Valeur** (en FCFA)
 
 ---
 
-## 🛠️ Technologies Utilisées
+## 🛠️ Technologies & Stack Technique
 
-| Technologie | Version | Rôle |
+| Composant | Technologie | Description |
 |---|---|---|
-| **Laravel** | 13.20.0 | Framework PHP (Backend MVC) |
-| **PHP** | 8.4.23 | Langage serveur |
-| **SQLite** | — | Base de données (fichier `database/database.sqlite`) |
-| **MDBootstrap** | 7.1.0 | Framework CSS (Material Design for Bootstrap) |
-| **Font Awesome** | 6.0.0 | Icônes vectorielles |
-| **Google Fonts (Inter)** | — | Typographie moderne |
-| **Blade** | — | Moteur de templates Laravel |
+| **Framework Backend** | **Laravel 13** | Architecture MVC, ORM Eloquent, Routage RESTful |
+| **Langage** | **PHP 8.4** | Typage strict et meilleures pratiques |
+| **Base de Données** | **SQLite** | SGBD léger avec migrations et seeders Eloquent |
+| **UI & Styling** | **MDBootstrap 7** | Material Design for Bootstrap & CSS natif |
+| **Iconographie & Fonts**| **Font Awesome 6 & Inter** | Design visuel haut de gamme |
+| **Conteneurisation** | **Docker & Apache** | Déploiement automatisé sur Render.com |
 
 ---
 
 ## 📁 Structure du Projet
 
 ```
-GestionnaireInventaire_Materiel/
+Gestionnaire_Inventaire_Materiel/
 │
 ├── app/
 │   ├── Http/
-│   │   └── Controllers/
-│   │       └── EquipementController.php    ← Contrôleur CRUD
-│   └── Models/
-│       └── Equipement.php                  ← Modèle Eloquent
+│   │   ├── Controllers/
+│   │   │   └── EquipementController.php    ← Contrôleur MVC (Resource)
+│   │   └── Requests/
+│   │       ├── StoreEquipementRequest.php  ← Validation création
+│   │       └── UpdateEquipementRequest.php ← Validation mise à jour
+│   ├── Models/
+│   │   └── Equipement.php                  ← Modèle Eloquent ($fillable)
+│   └── Providers/
+│       └── AppServiceProvider.php          ← Injection de données globales & HTTPS
 │
 ├── database/
+├── database/
 │   ├── migrations/
-│   │   └── 2026_07_20_..._create_equipements_table.php  ← Migration
-│   └── database.sqlite                    ← Base de données SQLite
+│   │   └── 2026_07_20_..._create_equipements_table.php
+│   └── seeders/
+│       ├── DatabaseSeeder.php
+│       └── EquipementSeeder.php            ← Données initiales FCFA
 │
-├── resources/
-│   └── views/
-│       ├── layouts/
-│       │   └── app.blade.php              ← Layout principal (sidebar + topbar)
-│       └── equipements/
-│           ├── index.blade.php            ← Page d'inventaire (tableau + stats)
-│           ├── create.blade.php           ← Formulaire d'ajout
-│           └── edit.blade.php             ← Formulaire de modification
+├── resources/views/
+│   ├── layouts/
+│   │   └── app.blade.php                   ← Sidebar & layout principal MDBootstrap
+│   ├── partials/
+│   │   ├── delete-modal.blade.php          ← Modale MDB de confirmation
+│   │   ├── equipment-avatar.blade.php      ← Avatars dynamiques par type
+│   │   └── status-pill.blade.php           ← Badges d'état lumineux
+│   └── equipements/
+│       ├── dashboard.blade.php            ← Tableau de bord analytique
+│       ├── index.blade.php                ← Vue liste & filtres rapides
+│       ├── show.blade.php                 ← Vue de détail d'un équipement
+│       ├── create.blade.php               ← Formulaire de création
+│       └── edit.blade.php                 ← Formulaire d'édition
 │
-├── routes/
-│   └── web.php                            ← Route::resource('equipements', ...)
-│
-└── .env                                   ← Configuration (DB_CONNECTION=sqlite)
+├── Dockerfile                              ← Déploiement conteneurisé Render (PHP 8.4)
+├── docker-start.sh                         ← Démarrage, migrations & seeders auto
+└── routes/web.php                          ← Route::resource('equipements', ...)
 ```
 
 ---
 
-## 🗃️ Base de Données
+## 🔒 Sécurité & Validations (Form Requests)
 
-### Table `equipements`
+Le projet utilise des classes de requêtes formulaires dédiées (`FormRequest`) pour isoler les règles de validation et garantir la sécurité des données transmises :
 
-| Colonne | Type | Description |
-|---|---|---|
-| `id` | `bigint` (auto-increment) | Identifiant unique |
-| `nom` | `string` | Nom de l'équipement (ex : `PC-Compta-01`) |
-| `type` | `string` | Type d'équipement : `PC`, `Serveur` ou `Switch` |
-| `adresse_ip` | `string` (unique) | Adresse IPv4 de l'équipement |
-| `date_acquisition` | `date` | Date d'acquisition du matériel |
-| `statut` | `string` | Statut opérationnel : `Actif` ou `En maintenance` |
-| `created_at` | `timestamp` | Date de création de l'enregistrement |
-| `updated_at` | `timestamp` | Date de dernière modification |
-
-### Migration
-
-```php
-Schema::create('equipements', function (Blueprint $table) {
-    $table->id();
-    $table->string('nom');
-    $table->string('type');
-    $table->string('adresse_ip');
-    $table->date('date_acquisition');
-    $table->string('statut');
-    $table->timestamps();
-});
-```
+- **`StoreEquipementRequest`** & **`UpdateEquipementRequest`** :
+  - `nom`: obligatoire, chaîne, min 2 caractères, max 255
+  - `type`: obligatoire, doit être strictement `PC`, `Serveur` ou `Switch`
+  - `adresse_ip`: obligatoire, format IPv4 valide, **unique** dans la base de données (l'IP courante est ignorée lors de la modification)
+  - `date_acquisition`: obligatoire, date valide, ne peut pas être dans le futur
+  - `statut`: obligatoire, doit être `Actif` ou `En maintenance`
+  - `prix`: optionnel, numérique, supérieur ou égal à 0
+  - Protection CSRF obligatoire sur tous les formulaires via la directive native `@csrf`
+  - Remontée d'erreurs ciblée en français sous chaque champ via `@error`
 
 ---
 
-## 🔁 Routes (CRUD)
+## 🎨 Interface & Ergonomie (Material Design)
 
-L'application utilise `Route::resource()` qui génère automatiquement les 7 routes RESTful :
-
-```php
-Route::resource('equipements', EquipementController::class);
-```
-
-| Méthode HTTP | URI | Action | Nom de la route | Description |
-|---|---|---|---|---|
-| `GET` | `/equipements` | `index()` | `equipements.index` | Afficher la liste |
-| `GET` | `/equipements/create` | `create()` | `equipements.create` | Formulaire d'ajout |
-| `POST` | `/equipements` | `store()` | `equipements.store` | Enregistrer un nouveau |
-| `GET` | `/equipements/{id}` | `show()` | `equipements.show` | Afficher un seul |
-| `GET` | `/equipements/{id}/edit` | `edit()` | `equipements.edit` | Formulaire de modification |
-| `PUT/PATCH` | `/equipements/{id}` | `update()` | `equipements.update` | Mettre à jour |
-| `DELETE` | `/equipements/{id}` | `destroy()` | `equipements.destroy` | Supprimer |
+- **Tableau de Bord** : Vue synthétique des KPIs (Nombre d'équipements, Taux d'activité, Valeur totale du parc en FCFA, Graphique de répartition).
+- **Modales de confirmation** : Confirmation de suppression sécurisée via les modales MDBootstrap.
+- **Formulaires interactifs** : Pré-remplissage des champs (`old()`), gestion des erreurs dynamiques.
+- **Réactivité Mobile/Desktop** : Interface entièrement adaptée aux mobiles et tablettes avec sidebar escamotable.
 
 ---
 
-## 🏗️ Le Contrôleur : `EquipementController`
+## 🚀 Installation & Déploiement Local
 
-Le contrôleur gère les 7 méthodes CRUD. Il utilise le **Route Model Binding** de Laravel : les méthodes `edit()`, `update()` et `destroy()` reçoivent directement un objet `Equipement` au lieu d'un simple `$id`.
-
-### `index()` — Afficher tous les équipements
-
-```php
-public function index()
-{
-    $equipements = Equipement::all();
-    $totalCount = $equipements->count();
-    $actifCount = $equipements->where('statut', 'Actif')->count();
-    $maintenanceCount = $equipements->where('statut', 'En maintenance')->count();
-    return view('equipements.index', compact('equipements', 'totalCount', 'actifCount', 'maintenanceCount'));
-}
-```
-
-- Récupère **tous** les équipements via `Equipement::all()`
-- Calcule les **statistiques** (total, actifs, en maintenance) pour les cartes du dashboard
-- Passe les données à la vue `equipements.index`
-
-### `create()` — Afficher le formulaire d'ajout
-
-```php
-public function create()
-{
-    return view('equipements.create');
-}
-```
-
-- Retourne simplement la vue du formulaire vide
-
-### `store()` — Enregistrer un nouvel équipement
-
-```php
-public function store(Request $request)
-{
-    $validatedData = $request->validate([
-        'nom'              => 'required|string|max:255',
-        'type'             => 'required|string|max:50',
-        'adresse_ip'       => 'required|ip|unique:equipements,adresse_ip',
-        'date_acquisition' => 'required|date',
-        'statut'           => 'required|string|in:Actif,En maintenance',
-    ]);
-
-    Equipement::create($validatedData);
-    return redirect()->route('equipements.index')
-                     ->with('success', 'L\'équipement a été ajouté avec succès.');
-}
-```
-
-- **Validation** de tous les champs :
-  - `nom` : obligatoire, chaîne, max 255 caractères
-  - `type` : obligatoire, chaîne, max 50 caractères
-  - `adresse_ip` : obligatoire, format IP valide, **unique** dans la table
-  - `date_acquisition` : obligatoire, format date valide
-  - `statut` : obligatoire, doit être exactement `Actif` ou `En maintenance`
-- **Création** via le mass-assignment (`Equipement::create()`)
-- **Redirection** vers l'index avec un message flash de succès
-
-### `edit()` — Afficher le formulaire de modification
-
-```php
-public function edit(Equipement $equipement)
-{
-    return view('equipements.edit', compact('equipement'));
-}
-```
-
-- Reçoit l'objet `$equipement` automatiquement grâce au **Route Model Binding**
-- Passe l'objet à la vue pour pré-remplir le formulaire
-
-### `update()` — Mettre à jour un équipement
-
-```php
-public function update(Request $request, Equipement $equipement)
-{
-    $validatedData = $request->validate([
-        'nom'              => 'required|string|max:255',
-        'type'             => 'required|string|max:50',
-        'adresse_ip'       => 'required|ip|unique:equipements,adresse_ip,' . $equipement->id,
-        'date_acquisition' => 'required|date',
-        'statut'           => 'required|string|in:Actif,En maintenance',
-    ]);
-
-    $equipement->update($validatedData);
-    return redirect()->route('equipements.index')
-                     ->with('success', 'Les informations de l\'équipement ont été mises à jour.');
-}
-```
-
-- Mêmes règles de validation que `store()`, **sauf** pour `adresse_ip` : on exclut l'ID actuel de la vérification d'unicité (`unique:equipements,adresse_ip,' . $equipement->id`) pour permettre à l'utilisateur de garder la même IP
-- Met à jour l'enregistrement via `$equipement->update()`
-
-### `destroy()` — Supprimer un équipement
-
-```php
-public function destroy(Equipement $equipement)
-{
-    $equipement->delete();
-    return redirect()->route('equipements.index')
-                     ->with('success', 'L\'équipement a été retiré de l\'inventaire avec succès.');
-}
-```
-
-- Supprime l'enregistrement via `$equipement->delete()`
-- Redirection avec message flash de confirmation
-
----
-
-## 📦 Le Modèle : `Equipement`
-
-```php
-class Equipement extends Model
-{
-    use HasFactory;
-
-    protected $fillable = [
-        'nom',
-        'type',
-        'adresse_ip',
-        'date_acquisition',
-        'statut',
-    ];
-}
-```
-
-- Utilise le trait `HasFactory` pour les factories (tests/seeders)
-- **`$fillable`** : liste les colonnes autorisées pour le mass-assignment (`create()` et `update()`). Cela protège contre les injections de champs non désirés
-
----
-
-## 🎨 Interface Utilisateur (Vues Blade)
-
-### Architecture des vues
-
-L'application utilise l'**héritage de templates Blade** :
-- `layouts/app.blade.php` → Layout principal (sidebar, topbar, styles)
-- Les pages enfants (`index`, `create`, `edit`) héritent du layout via `@extends('layouts.app')` et injectent leur contenu dans `@yield('content')`
-
-### `layouts/app.blade.php` — Layout Principal
-
-Le layout implémente un design de **panneau d'administration professionnel** :
-
-- **Sidebar gauche** (260px) :
-  - Logo avec dégradé bleu/violet
-  - Navigation avec icônes Font Awesome
-  - Indicateur de lien actif (barre bleue latérale)
-  - Badge compteur sur "Inventaire"
-  - Lien "Centre d'aide" en bas
-  - Responsive : se cache sur mobile, accessible via bouton hamburger
-
-- **Barre supérieure** (sticky) :
-  - Champ de recherche avec icône
-  - Boutons notification (cloche) et aide (?)
-  - Pill utilisateur avec avatar
-
-- **Zone de contenu** :
-  - Alertes flash pour les messages de succès/erreur
-  - Bloc `@yield('content')` pour le contenu des pages
-
-- **Système de design** (CSS variables) :
-  - Palette de couleurs cohérente (`--primary`, `--green`, `--amber`, `--red`)
-  - Système d'ombres à 4 niveaux (`--shadow-sm` à `--shadow-xl`)
-  - Animations d'entrée en cascade (`fadeInUp`)
-  - Responsive avec overlay de sidebar pour mobile
-
-### `equipements/index.blade.php` — Page d'Inventaire
-
-- **4 cartes statistiques** :
-  - Total des équipements (icône bleue)
-  - Nombre d'actifs (icône verte)
-  - Nombre en maintenance (icône orange)
-  - Taux opérationnel en % (icône violette, calculé dynamiquement)
-
-- **Tableau de données** :
-  - Avatar coloré par type (bleu=PC, violet=Serveur, cyan=Switch)
-  - Badge ID formaté (`EQ-001`)
-  - Adresse IP en police monospace
-  - Date d'acquisition formatée (`20 Jul 2026`)
-  - Pill de statut avec indicateur lumineux
-  - Boutons d'action (icônes crayon/poubelle avec hover coloré)
-
-- **État vide** : Icône + message + bouton d'ajout si aucun équipement
-
-- **Modale de suppression** : Confirmation centrée avec icône danger
-
-### `equipements/create.blade.php` — Formulaire d'Ajout
-
-- Lien retour vers l'inventaire
-- Carte blanche avec header et icône "+"
-- Champs organisés en grille 2 colonnes :
-  - Nom (pleine largeur)
-  - Type / Statut (2 colonnes)
-  - Adresse IP / Date d'acquisition (2 colonnes)
-- Validation en temps réel (messages d'erreur rouges sous chaque champ)
-- Boutons Annuler / Enregistrer
-
-### `equipements/edit.blade.php` — Formulaire de Modification
-
-- Identique au formulaire de création, mais :
-  - Header avec avatar du type d'équipement, nom, badge ID et pill de statut
-  - Champs pré-remplis avec `old('champ', $equipement->champ)`
-  - Champ caché `@method('PUT')` pour simuler la méthode HTTP PUT
-  - Bouton "Mettre à jour" au lieu de "Enregistrer"
-
----
-
-## ⚙️ Configuration
-
-### Fichier `.env` (variables importantes)
-
-```env
-DB_CONNECTION=sqlite          # Utilise SQLite (pas besoin de MySQL)
-SESSION_DRIVER=file           # Sessions stockées en fichier
-CACHE_STORE=database          # Cache en base de données
-```
-
-### Pourquoi SQLite ?
-
-- **Aucune installation** requise (pas de MySQL/PostgreSQL)
-- Le fichier `database/database.sqlite` est créé automatiquement
-- Parfait pour le développement et les projets de cours
-
----
-
-## 🚀 Installation et Lancement
-
-### Prérequis
-
-- PHP ≥ 8.2
+### Prérequis :
+- PHP ≥ 8.3 / 8.4
 - Composer
 
-### Étapes
-
+### Procédure :
 ```bash
-# 1. Cloner le projet
-git clone <url-du-repo>
-cd GestionnaireInventaire_Materiel
+# 1. Cloner le dépôt
+git clone https://github.com/Cheickne-Kanoute/Gestionnaire_Inventaire_Materiel.git
+cd Gestionnaire_Inventaire_Materiel
 
-# 2. Installer les dépendances PHP
+# 2. Installer les dépendances
 composer install
 
-# 3. Copier le fichier d'environnement
+# 3. Copier l'environnement
 cp .env.example .env
 
-# 4. Configurer la base de données (dans .env)
-# Remplacer DB_CONNECTION=mysql par :
-# DB_CONNECTION=sqlite
-# Et commenter DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD
-
-# 5. Configurer le driver de session (dans .env)
-# Remplacer SESSION_DRIVER=database par :
-# SESSION_DRIVER=file
-
-# 6. Générer la clé d'application
+# 4. Générer la clé d'application
 php artisan key:generate
 
-# 7. Lancer les migrations
-php artisan migrate
+# 5. Exécuter les migrations et le seeder de test
+php artisan migrate --seed
 
-# 8. Démarrer le serveur de développement
+# 6. Démarrer le serveur local
 php artisan serve
 ```
-
-L'application est accessible sur : **http://127.0.0.1:8000/equipements**
-
----
-
-## 🔐 Validation des Données
-
-Chaque champ est validé côté serveur avant insertion/modification :
-
-| Champ | Règles | Explication |
-|---|---|---|
-| `nom` | `required\|string\|max:255` | Obligatoire, texte, max 255 caractères |
-| `type` | `required\|string\|max:50` | Obligatoire, texte, max 50 caractères |
-| `adresse_ip` | `required\|ip\|unique:equipements` | Obligatoire, format IP valide, unique en BDD |
-| `date_acquisition` | `required\|date` | Obligatoire, format date valide |
-| `statut` | `required\|in:Actif,En maintenance` | Obligatoire, valeur exacte parmi les 2 choix |
-
-En cas d'erreur, l'utilisateur est redirigé vers le formulaire avec :
-- Les **messages d'erreur** affichés sous chaque champ (`@error('nom')`)
-- Les **anciennes valeurs** conservées grâce à `old('nom')` pour éviter de tout re-saisir
+L'application sera accessible sur `http://127.0.0.1:8000`.
 
 ---
 
-## 📝 Concepts Laravel Utilisés
+## 📄 Évaluation & Conformité
 
-| Concept | Utilisation dans le projet |
-|---|---|
-| **Route Model Binding** | `edit(Equipement $equipement)` — Laravel résout automatiquement l'ID en objet |
-| **Mass Assignment** | `Equipement::create($validatedData)` — Insertion en une seule ligne |
-| **`$fillable`** | Protection contre l'injection de champs non autorisés |
-| **Validation** | `$request->validate([...])` — Validation déclarative côté serveur |
-| **Flash Messages** | `->with('success', '...')` — Message affiché une seule fois après redirection |
-| **Blade Inheritance** | `@extends`, `@section`, `@yield` — Héritage de templates |
-| **Blade Directives** | `@foreach`, `@forelse`, `@if`, `@error`, `@csrf`, `@method` |
-| **Resource Routes** | `Route::resource()` — Génère les 7 routes CRUD automatiquement |
-| **Eloquent ORM** | `all()`, `create()`, `update()`, `delete()` — Manipulation de la BDD |
-| **Migrations** | Création de la table `equipements` via schéma PHP |
+Ce projet satisfait à 100% l'ensemble des règles de la grille d'évaluation du sujet d'examen :
+- [x] ORM Eloquent exclusif pour les requêtes BDD.
+- [x] Directives native `@csrf` sur toutes les formulaires POST/PUT/DELETE.
+- [x] Form Requests de validation dédiées avec affichage `@error`.
+- [x] Intégration MDBootstrap & Modales de confirmation.
+- [x] Hébergement public en production sur Render (`APP_DEBUG=false`).
+- [x] Code source disponible sur GitHub.
 
 ---
-
-## 📄 Licence
-
-Projet réalisé dans le cadre d'un cours Laravel.
+© 2026 **TechnoLAB-ISTA** — Licence 3 Génie Logiciel.
