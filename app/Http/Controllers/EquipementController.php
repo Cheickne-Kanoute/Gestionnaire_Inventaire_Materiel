@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Equipement;
+use App\Http\Requests\StoreEquipementRequest;
+use App\Http\Requests\UpdateEquipementRequest;
 
 class EquipementController extends Controller
 {
@@ -55,7 +57,7 @@ class EquipementController extends Controller
             $query->where('type', $type);
         }
 
-        $equipements = $query->get();
+        $equipements = $query->latest()->get();
 
         return view('equipements.index', compact(
             'equipements', 'totalCount', 'actifCount', 'maintenanceCount', 'search', 'type'
@@ -73,18 +75,10 @@ class EquipementController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreEquipementRequest $request)
     {
-        $validatedData = $request->validate([
-            'nom'              => 'required|string|max:255',
-            'type'             => 'required|string|max:50',
-            'adresse_ip'       => 'required|ip|unique:equipements,adresse_ip',
-            'date_acquisition' => 'required|date',
-            'statut'           => 'required|string|in:Actif,En maintenance',
-            'prix'             => 'nullable|numeric|min:0',
-        ]);
+        Equipement::create($request->validated());
 
-        Equipement::create($validatedData);
         return redirect()->route('equipements.index')
                          ->with('success', 'L\'équipement a été ajouté avec succès.');
     }
@@ -94,7 +88,7 @@ class EquipementController extends Controller
      */
     public function show(Equipement $equipement)
     {
-        return view('equipements.index');
+        return view('equipements.show', compact('equipement'));
     }
 
     /**
@@ -108,19 +102,10 @@ class EquipementController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Equipement $equipement)
+    public function update(UpdateEquipementRequest $request, Equipement $equipement)
     {
-        $validatedData = $request->validate([
-            'nom'              => 'required|string|max:255',
-            'type'             => 'required|string|max:50',
-            // Ignore the current equipment's IP for the uniqueness rule
-            'adresse_ip'       => 'required|ip|unique:equipements,adresse_ip,' . $equipement->id,
-            'date_acquisition' => 'required|date',
-            'statut'           => 'required|string|in:Actif,En maintenance',
-            'prix'             => 'nullable|numeric|min:0',
-        ]);
+        $equipement->update($request->validated());
 
-        $equipement->update($validatedData);
         return redirect()->route('equipements.index')
                          ->with('success', 'Les informations de l\'équipement ont été mises à jour.');
     }
@@ -131,6 +116,7 @@ class EquipementController extends Controller
     public function destroy(Equipement $equipement)
     {
         $equipement->delete();
+
         return redirect()->route('equipements.index')
                          ->with('success', 'L\'équipement a été retiré de l\'inventaire avec succès.');
     }

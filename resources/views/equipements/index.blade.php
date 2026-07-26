@@ -164,6 +164,11 @@
                     <td>@include('partials.status-pill', ['statut' => $equipement->statut])</td>
                     <td>
                         <div class="action-btn-group">
+                            <a href="{{ route('equipements.show', $equipement->id) }}"
+                               class="action-btn"
+                               title="Voir {{ $equipement->nom }}">
+                                <i class="fas fa-eye" aria-hidden="true"></i>
+                            </a>
                             <a href="{{ route('equipements.edit', $equipement->id) }}"
                                class="action-btn"
                                title="Modifier {{ $equipement->nom }}">
