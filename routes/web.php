@@ -9,3 +9,9 @@ Route::get('/dashboard', [EquipementController::class, 'dashboard'])->name('dash
 
 Route::resource('equipements', EquipementController::class);
 
+// Route de ping pour maintenir le conteneur éveillé (Keep-Alive)
+Route::get('/ping', function () {
+    return response()->json(['status' => 'ok', 'timestamp' => now()->toDateTimeString()]);
+});
+
+
