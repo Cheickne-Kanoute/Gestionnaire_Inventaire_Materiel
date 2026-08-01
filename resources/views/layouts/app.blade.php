@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Gestionnaire d'inventaire du parc informatique — IT Assets Manager">
-    <title>@yield('title', 'IT Assets Manager')</title>
+    <title>@yield('title', config('app.name', 'IT Assets Manager'))</title>
 
     {{-- Fonts & Icons (CDN) --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +16,10 @@
     {{-- MDB CSS --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css" rel="stylesheet">
 
-    {{-- CSS & JS Custom --}}
+    {{-- Vite Assets & Custom CSS --}}
+    @if(file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @endif
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -49,7 +53,9 @@
                aria-current="{{ request()->routeIs('equipements.index') && !request('type') ? 'page' : 'false' }}">
                 <i class="fas fa-list" aria-hidden="true"></i>
                 Inventaire
-                <span class="link-badge" aria-label="Total équipements">{{ $inventoryCount }}</span>
+                @if(isset($inventoryCount))
+                    <span class="link-badge" aria-label="Total équipements">{{ $inventoryCount }}</span>
+                @endif
             </a>
 
             <a href="{{ route('equipements.create') }}"
@@ -77,12 +83,38 @@
                 <i class="fas fa-network-wired" aria-hidden="true"></i>
                 Switches
             </a>
+
+            @auth
+                <div class="sidebar-label">Compte</div>
+
+                <a href="{{ route('profile.edit') }}"
+                   class="sidebar-link @if(request()->routeIs('profile.edit')) active @endif">
+                    <i class="fas fa-user-circle" aria-hidden="true"></i>
+                    {{ Auth::user()->name }}
+                </a>
+
+                <form method="POST" action="{{ route('logout') }}" style="display: block; margin: 0;">
+                    @csrf
+                    <button type="submit" class="sidebar-link" style="width: 100%; border: none; background: transparent; text-align: left; cursor: pointer; color: inherit;">
+                        <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                        Déconnexion
+                    </button>
+                </form>
+            @endauth
         </nav>
 
     </aside>
 
     {{-- ════ CONTENU PRINCIPAL ════ --}}
     <div class="main-wrapper">
+
+        @isset($header)
+            <header class="bg-white shadow mb-4 p-4">
+                <div class="max-w-7xl mx-auto">
+                    {{ $header }}
+                </div>
+            </header>
+        @endisset
 
         {{-- Zone de contenu --}}
         <main class="content-area" role="main">
@@ -102,6 +134,7 @@
                 </div>
             @endif
 
+            {{ $slot ?? '' }}
             @yield('content')
         </main>
     </div>
