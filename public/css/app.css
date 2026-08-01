@@ -25,6 +25,7 @@
 /* 4. Pages ─ styles spécifiques à chaque page */
 @import './pages/_dashboard.css';
 @import './pages/_inventory.css';
+@import './pages/_users.css';
 
 /* 5. Utils ─ responsive breakpoints */
 @import './utils/_responsive.css';

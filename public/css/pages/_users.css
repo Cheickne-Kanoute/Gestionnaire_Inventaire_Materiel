@@ -1,0 +1,365 @@
+/* =====================================================
+   PAGES / _users.css
+   Styles pour la page de gestion des utilisateurs.
+   ===================================================== */
+
+/* ── Alias de commodité ── */
+.card-pro {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.card-header-pro {
+    padding: 1.1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-title-pro {
+    font-size: 0.97rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ── Stats grid 3 colonnes ── */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stats-grid.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+/* Réutilise .stat-card existant, variantes couleur */
+.stat-blue .stat-icon {
+    background: var(--primary-50);
+    color: var(--primary);
+}
+
+.stat-purple .stat-icon {
+    background: var(--purple-bg);
+    color: var(--purple);
+}
+
+.stat-green .stat-icon {
+    background: var(--green-bg);
+    color: var(--green);
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 1.4rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.stat-info {}
+
+.stat-value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-top: 3px;
+}
+
+/* ── Table pro (alias data-table) ── */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table-pro {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-pro thead th {
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 0.85rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    background: var(--bg);
+    user-select: none;
+}
+
+.table-pro thead th.text-center,
+.table-pro tbody td.text-center {
+    text-align: center;
+}
+
+.table-pro tbody td {
+    padding: 0.9rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--text);
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: middle;
+}
+
+.table-pro tbody tr:hover {
+    background: #f8fafc;
+}
+
+.table-pro tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ── Cellule utilisateur avec avatar ── */
+.user-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--primary-50);
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 2px solid var(--primary-200, #bfdbfe);
+}
+
+.fw-600 {
+    font-weight: 600;
+}
+
+/* ── Badges pro ── */
+.badge-pro {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.badge-purple-pro {
+    background: var(--purple-bg);
+    color: var(--purple);
+    border: 1px solid var(--purple-border, #d8b4fe);
+}
+
+.badge-success-pro {
+    background: var(--green-bg);
+    color: var(--green);
+    border: 1px solid var(--green-border);
+}
+
+.badge-info-pro {
+    background: var(--primary-50);
+    color: var(--primary);
+    border: 1px solid var(--primary-200, #bfdbfe);
+    font-size: 0.68rem;
+    padding: 2px 7px;
+}
+
+.ms-1 {
+    margin-left: 4px;
+}
+
+.me-1 {
+    margin-right: 4px;
+}
+
+/* ── Boutons d'action ── */
+.action-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-action {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-edit:hover {
+    background: var(--primary-50);
+    color: var(--primary);
+    border-color: var(--primary-200, #bfdbfe);
+}
+
+.btn-delete {
+    border: none;
+}
+
+.btn-delete:hover {
+    background: var(--red-bg, #fef2f2);
+    color: var(--red, #dc2626);
+    border-color: var(--red-border, #fecaca);
+}
+
+/* ── État vide ── */
+.empty-state {
+    text-align: center;
+    padding: 3.5rem 1rem;
+    color: var(--text-muted);
+}
+
+.empty-state i {
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+    opacity: 0.4;
+}
+
+.empty-state p {
+    font-size: 0.9rem;
+}
+
+/* ── Bouton secondaire (si absent) ── */
+.btn-secondary-pro {
+    background: var(--surface);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+.btn-secondary-pro:hover {
+    background: var(--bg);
+    color: var(--text);
+    border-color: #cbd5e1;
+}
+
+/* ── Formulaire carte ── */
+.form-card-pro {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+    max-width: 600px;
+}
+
+.form-group-pro {
+    margin-bottom: 1.25rem;
+}
+
+.form-group-pro.has-error .form-input-pro {
+    border-color: var(--red, #dc2626);
+}
+
+.form-error-pro {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--red, #dc2626);
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+.input-error {
+    border-color: var(--red, #dc2626) !important;
+}
+
+.form-hint {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+
+.required {
+    color: var(--red, #dc2626);
+    margin-left: 2px;
+}
+
+.form-actions-pro {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 1.25rem;
+    margin-top: 0.75rem;
+    border-top: 1px solid var(--border);
+}
+
+/* Séparateur de section dans le formulaire */
+.form-section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0 1.25rem;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-section-divider::before,
+.form-section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-card-pro {
+        padding: 1.25rem;
+    }
+}

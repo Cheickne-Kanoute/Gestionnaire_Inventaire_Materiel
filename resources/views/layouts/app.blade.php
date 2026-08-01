@@ -93,6 +93,17 @@
                     {{ Auth::user()->name }}
                 </a>
 
+                @if(Auth::user()->isAdmin())
+                    <div class="sidebar-label">Administration</div>
+
+                    <a href="{{ route('users.index') }}"
+                       class="sidebar-link @if(request()->routeIs('users.*')) active @endif"
+                       aria-current="{{ request()->routeIs('users.*') ? 'page' : 'false' }}">
+                        <i class="fas fa-users-cog" aria-hidden="true"></i>
+                        Utilisateurs
+                    </a>
+                @endif
+
                 <form method="POST" action="{{ route('logout') }}" style="display: block; margin: 0;">
                     @csrf
                     <button type="submit" class="sidebar-link" style="width: 100%; border: none; background: transparent; text-align: left; cursor: pointer; color: inherit;">
