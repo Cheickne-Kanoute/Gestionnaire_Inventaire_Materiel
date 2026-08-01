@@ -28,4 +28,20 @@ class ProfileUpdateRequest extends FormRequest
             ],
         ];
     }
+
+    /**
+     * Get custom messages for validator errors.
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Le nom est obligatoire.',
+            'name.string' => 'Le nom doit être une chaîne de caractères.',
+            'name.max' => 'Le nom ne peut pas dépasser 255 caractères.',
+            'email.required' => 'L\'adresse email est obligatoire.',
+            'email.email' => 'L\'adresse email doit être une adresse valide.',
+            'email.max' => 'L\'adresse email ne peut pas dépasser 255 caractères.',
+            'email.unique' => 'Cette adresse email est déjà utilisée par un autre compte.',
+        ];
+    }
 }

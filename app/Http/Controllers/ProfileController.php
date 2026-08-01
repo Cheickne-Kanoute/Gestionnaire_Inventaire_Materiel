@@ -44,6 +44,9 @@ class ProfileController extends Controller
     {
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
+        ], [
+            'password.required' => 'Le mot de passe est obligatoire pour confirmer la suppression.',
+            'password.current_password' => 'Le mot de passe saisi est incorrect.',
         ]);
 
         $user = $request->user();
